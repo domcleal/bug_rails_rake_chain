@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Both unit/functional test rake tasks can't be run in one rake command:
 
-Things you may want to cover:
+    $ rake test:units test:functionals TESTOPTS=-v
+    Run options: -v --seed 41266
 
-* Ruby version
+    # Running:
 
-* System dependencies
+    FunctionalTest#test_functional = 0.00 s = .
 
-* Configuration
+    Finished in 0.002507s, 398.8766 runs/s, 0.0000 assertions/s.
 
-* Database creation
+    1 runs, 0 assertions, 0 failures, 0 errors, 0 skips
 
-* Database initialization
+But the other way, only unit tests run:
 
-* How to run the test suite
+    $ rake test:functionals test:units TESTOPTS=-v
+    Run options: -v --seed 9620
 
-* Services (job queues, cache servers, search engines, etc.)
+    # Running:
 
-* Deployment instructions
+    UnitTest#test_unit = 0.00 s = .
 
-* ...
+    Finished in 0.002579s, 387.7828 runs/s, 0.0000 assertions/s.
+
+    1 runs, 0 assertions, 0 failures, 0 errors, 0 skips
+
+(`rake test` etc work fine, it's just the selective tasks)
+
+It works fine on Rails 4.2.7.1 (see [4.2 branch](https://github.com/domcleal/bug_rails_rake_chain/tree/4.2)).
